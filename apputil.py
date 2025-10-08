@@ -2,6 +2,8 @@
 
 import requests
 import pandas as pd
+from dotenv import load_dotenv
+import os
 
 
 class Genius:
@@ -13,7 +15,8 @@ class Genius:
         """
         Initialize the Genius object with an access token.
         """
-        self.access_token = access_token
+        load_dotenv()  # Load environment variables from a .env file
+        self.access_token = access_token or os.getenv("ACCESS_TOKEN")
         self.base_url = "https://api.genius.com"
         self.headers = {"Authorization": f"Bearer {self.access_token}"}
 
@@ -78,3 +81,5 @@ class Genius:
 
         # Convert collected data into a DataFrame for easy analysis
         return pd.DataFrame(rows)
+
+
